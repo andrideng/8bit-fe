@@ -11,9 +11,9 @@ export default function Login() {
   const cookieStore = cookies();
   const isLoggedIn = cookieStore.has(COOKIES_ACCESS_TOKEN);
 
-  if (isLoggedIn) {
-    redirect('/');
-  }
+  // if (isLoggedIn) {
+  //   redirect('/');
+  // }
 
   return (
     <div className="flex flex-col items-center justify-center w-full gap-8">

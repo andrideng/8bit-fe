@@ -1,9 +1,10 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './provider';
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
+import { GeneralLayout } from '@/components/core/layout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,16 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <main className={
-            cn(
-              "bg-[url('/assets/bg-login.png')] bg-cover",
-              "flex flex-col mx-auto",
-              "min-h-screen",
-              "max-w-[430px]",
-            )
-          }>
+          <GeneralLayout>
             <Suspense fallback={null}>{children}</Suspense>
-          </main>
+          </GeneralLayout>
         </Providers>
       </body>
     </html>
