@@ -27,7 +27,7 @@ export function FormOtp() {
       <DialogContent className="w-[300px] bg-[#2F105E] border-none rounded-xl">
         <div className="flex flex-col items-center justify-center gap-4">
           <div className="font-bold text-3xl uppercase text-white uppercase text-center">
-            Verifiy Your <span className="text-[#EF569F]">Number</span>
+            Verify Your <span className="text-[#EF569F]">Number</span>
           </div>
           <InputOTP maxLength={4}>
             <InputOTPGroup className="gap-2">
