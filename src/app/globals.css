@@ -1,76 +1,114 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 222.2 84% 4.9%;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-      --primary: 222.2 47.4% 11.2%;
-      --primary-foreground: 210 40% 98%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-      --secondary: 210 40% 96.1%;
-      --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-      --accent: 210 40% 96.1%;
-      --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-      --radius: 0.5rem;
-    }
+    --radius: 0.5rem;
 
-    .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-
-      --popover: 222.2 84% 4.9%;
-      --popover-foreground: 210 40% 98%;
-
-      --primary: 210 40% 98%;
-      --primary-foreground: 222.2 47.4% 11.2%;
-
-      --secondary: 217.2 32.6% 17.5%;
-      --secondary-foreground: 210 40% 98%;
-
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-
-      --accent: 217.2 32.6% 17.5%;
-      --accent-foreground: 210 40% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 217.2 32.6% 17.5%;
-      --input: 217.2 32.6% 17.5%;
-      --ring: 212.7 26.8% 83.9%;
-    }
+    --orchid-sky: linear-gradient(180deg, #fa5ca4 -4.19%, #672899 22.53%);
+    --coral-sunset: linear-gradient(180deg, #f05a92 -7.1%, #ec1f7d 40.94%);
+    --lavender-dreams: linear-gradient(83.88deg, #bca7ff 25.46%, #ffbfdc 50.98%, #a6ffea 79.18%);
+    --royal-blue: linear-gradient(180deg, #bda7ff 0%, #6135a7 100%);
+    --stone-gray: #9c9c9c;
+    --fuchsia-bliss: #ef569f;
+    --magenta-rose: #ed2681;
+    --midnight-violet: #4c2bac;
+    --indigo-blue: #5c39c1;
+    --sapphire-ocean: linear-gradient(180deg, #7448ff 0%, #32bba3 100%);
+    --silver-lilac: linear-gradient(180deg, #dad7d4 0%, #aa89e5 100%);
+    --plum-passion: linear-gradient(180deg, #3d0b7d 0%, #610869 100%);
+    --orchid-dreams: linear-gradient(180deg, #ed2681 0%, #6f0081 100%);
+    --aquamarine-ocean: linear-gradient(180deg, #0fd9f4 0%, #0a5fc4 100%);
+    --lime-zest: linear-gradient(180deg, #e2e419 0%, #7ac009 100%);
+    --raspberry-sorbet: linear-gradient(180deg, #f869aa 0%, #c328d0 100%);
+    --aqua-marine: linear-gradient(180deg, #00ffc2 0%, #00e0ff 45.41%);
+    --sky-blue: linear-gradient(180deg, #00ffc2 0%, #00e0ff 28.86%);
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --orchid-sky: linear-gradient(180deg, #FA5CA4 -4.19%, #672899 22.53%);
+    --coral-sunset: linear-gradient(180deg, #F05A92 -7.1%, #EC1F7D 40.94%);
+    --lavender-dreams: linear-gradient(83.88deg, #BCA7FF 25.46%, #FFBFDC 50.98%, #A6FFEA 79.18%);
+    --royal-blue: linear-gradient(180deg, #BDA7FF 0%, #6135A7 100%);
+    --stone-gray: #9C9C9C;
+    --fuchsia-bliss: #EF569F;
+    --magenta-rose: #ED2681;
+    --midnight-violet: #4C2BAC;
+    --indigo-blue: #5C39C1;
+    --sapphire-ocean: linear-gradient(180deg, #7448FF 0%, #32BBA3 100%);
+    --silver-lilac: linear-gradient(180deg, #DAD7D4 0%, #AA89E5 100%);
+    --plum-passion: linear-gradient(180deg, #3D0B7D 0%, #610869 100%);
+    --orchid-dreams: linear-gradient(180deg, #ED2681 0%, #6F0081 100%);
+    --aquamarine-ocean: linear-gradient(180deg, #0FD9F4 0%, #0A5FC4 100%);
+    --lime-zest: linear-gradient(180deg, #E2E419 0%, #7AC009 100%);
+    --raspberry-sorbet: linear-gradient(180deg, #F869AA 0%, #C328D0 100%);
+    --aqua-marine: linear-gradient(180deg, #00FFC2 0%, #00E0FF 45.41%);
+    --sky-blue: linear-gradient(180deg, #00FFC2 0%, #00E0FF 28.86%);
   }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

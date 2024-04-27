@@ -1,5 +1,7 @@
 import { CardUser } from '@/components/card/card-user';
 import { Card, CardContent } from '@/components/ui/card';
+import { CardWallet } from '@/components/card/card-wallet';
+import { SwipeStart } from '@/components/card/swipe-start';
 
 import {
   Carousel,
@@ -28,7 +30,11 @@ export default function CardPage() {
         </Carousel>
       </div>
       <div className="p-8 w-full h-full">
+        <CardWallet />
         <CardUser />
+      </div>
+      <div className="py-2 px-8 w-full h-full">
+        <SwipeStart />
       </div>
     </div>
   );
