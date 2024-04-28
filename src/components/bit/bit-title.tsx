@@ -8,7 +8,7 @@ export function BitTitle() {
 			<div className='text-5xl text-white font-bold'>
 				YOU HAVE
 			</div>
-      <div className="text-5xl font-bold text-royalBlue">
+      <div className="text-5xl font-bold text-lavenderDreams">
         270
         <span className="text-sm font-normal ml-1 text-white">BITS</span>
 			</div>

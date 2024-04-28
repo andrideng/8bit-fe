@@ -5,15 +5,15 @@ import Image from 'next/image';
 export function BitCard() {
   return (
     <div>
-			<ul className="grid grid-flow-col text-center text-gray-500  p-1">
+			<ul className="grid grid-flow-col text-center text-gray-500 p-1">
 				<li>
-					<a href="#page1" className="flex justify-center bg-[#522E91] rounded-tl-lg rounded-tr-lg border-l border-t border-r border-[#522E91] py-4 text-white">
+					<a href="#" className="flex justify-center bg-[#522E91] rounded-tl-lg rounded-tr-lg border-l border-t border-r border-[#522E91] py-4 text-white">
 						HOW TO GET
 						<small>bits</small>
 					</a>
 				</li>
 				<li>
-					<a href="#page2" className="flex justify-center py-4">
+					<a href="#" className="flex justify-center py-4 text-white bg-lavenderDreams">
 						REDEEM PRIZE
 					</a>
 				</li>
@@ -36,7 +36,9 @@ export function BitCard() {
 							</div>
 						</div>
 					</div>
+
 					<p className='text-white'>OR</p>
+
 					<div className="rounded-xl shadow-inner m-2 mt-2 bg-[#5D24C5]">
 						<div className="flex items-center gap-2 h-full p-5">
 							<div className='text-white font-bold'>
