@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { BitCard } from '@/components/bit/bit-card';
 
 export default function CardPage() {
   return (
@@ -18,7 +19,7 @@ export default function CardPage() {
         <BitTitle />
       </div>
       <div className="p-8 pt-0 w-full h-full">
-        <CardUser />
+        <BitCard />
       </div>
     </div>
   );
