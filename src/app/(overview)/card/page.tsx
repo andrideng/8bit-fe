@@ -1,6 +1,10 @@
+'use client';
+
 import { CardUser } from '@/components/card/card-user';
+import { CardDraw } from '@/components/card/card-draw';
 import { Card, CardContent } from '@/components/ui/card';
 import { CardWallet } from '@/components/card/card-wallet';
+import { CardTransaction } from '@/components/card/card-transaction';
 import { SwipeStart } from '@/components/card/swipe-start';
 
 import {
@@ -10,8 +14,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useCallback, useState } from 'react';
 
 export default function CardPage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <div className="w-full mt-8">
@@ -30,8 +37,10 @@ export default function CardPage() {
         </Carousel>
       </div>
       <div className="p-8 w-full h-full">
-        <CardWallet />
-        <CardUser />
+        <CardWallet onClickTransaction={setActiveIndex} stateIndex={activeIndex} />
+        {activeIndex === 0 && <CardUser />}
+        {activeIndex === 1 && <CardDraw />}
+        {activeIndex === 2 && <CardTransaction />}
       </div>
       <div className="py-2 px-8 w-full h-full">
         <SwipeStart />

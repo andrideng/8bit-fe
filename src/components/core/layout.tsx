@@ -8,34 +8,48 @@ import { MenuBar } from './menubar';
 
 export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const pathname = usePathname();
-  const [backgroundImage, setBackgroundImage] = useState<string>("/assets/bg-pink.png");
+  const [backgroundImage, setBackgroundImage] = useState<string>('/assets/bg-pink.png');
 
   useEffect(() => {
     if (pathname.includes('auth')) {
-      setBackgroundImage("/assets/bg-login.png");
+      setBackgroundImage('/assets/bg-login.png');
     } else if (pathname.includes('bit')) {
-      setBackgroundImage("/assets/bg-purple.png");
+      setBackgroundImage('/assets/bg-purple.png');
     } else {
-      setBackgroundImage("/assets/bg-pink.png");
+      setBackgroundImage('/assets/bg-pink.png');
     }
   }, [pathname]);
 
   return (
-    <main
+    <div
       className={cn(
         'bg-cover',
         'bg-no-repeat',
         'bg-center',
-        'flex flex-col mx-auto flex-grow',
+        'mx-auto',
+        'justify-between',
         'min-h-screen',
         'max-w-[430px]',
-        'items-start',
-        'justify-between',
+        'relative'
       )}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      {children}
-      <MenuBar />
-    </main>
+      <div
+        className={cn(
+          'flex',
+          'flex-col',
+          'items-center',
+          'justify-center',
+          'w-full',
+          'h-full',
+          'overflow-y-auto'
+        )}
+      >
+        {children}
+      </div>
+      <div className="absolute inset-x-0 bottom-0 bg-[#47176E] h-[100px] overflow-hidden">
+        <MenuBar />
+      </div>
+    </div>
   );
 }

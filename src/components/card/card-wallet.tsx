@@ -1,8 +1,23 @@
 'use client';
 
 import Image from 'next/image';
+import { useCallback } from 'react';
 
-export function CardWallet() {
+interface CardWalletProps {
+  stateIndex: number;
+  onClickTransaction: (index: number) => void;
+}
+
+export function CardWallet({ stateIndex, onClickTransaction }: CardWalletProps) {
+  const handleClickTransaction = useCallback(() => {
+    if (stateIndex === 2) {
+      onClickTransaction(0);
+    }
+    if (stateIndex === 0) {
+      onClickTransaction(2);
+    }
+  }, [onClickTransaction, stateIndex]);
+
   return (
     <div className="flex w-full items-center justify-center gap-2 bg-white rounded-xl shadow-xl p-2">
       <div className="rounded-xl shadow-inner pr-2 h-full">
@@ -27,7 +42,10 @@ export function CardWallet() {
           </div>
         </div>
       </div>
-      <div className="rounded-xl shadow-inner p-2 bg-indigoBlue">
+      <div
+        className="rounded-xl shadow-inner p-2 bg-indigoBlue h-full cursor-pointer"
+        onClick={handleClickTransaction}
+      >
         <Image src="/assets/history-icon.png" width={28} height={28} alt="8bit coin" />
       </div>
     </div>

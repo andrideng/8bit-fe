@@ -1,6 +1,9 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
+import { cn } from '@/lib/utils';
+import ArrowRightIcon from '../icons/arrows-right';
+import ArrowLeftIcon from '../icons/arrows-left';
 
 export const SwipeStart: React.FC = () => {
   const [startX, setStartX] = useState<number | null>(null);
@@ -66,18 +69,48 @@ export const SwipeStart: React.FC = () => {
 
   return (
     <div
-      className="bg-white w-full peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input"
+      className={cn(
+        isFinished ? 'bg-[#920A48]' : 'bg-white',
+        'shadow-inner',
+        'w-full',
+        'peer',
+        'inline-flex',
+        'h-12',
+        'w-full',
+        'shrink-0',
+        'items-center',
+        'rounded-full',
+        'border-2',
+        'border-transparent',
+        'transition-colors',
+        'p-1'
+      )}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onMouseDown={handleMouseDown}
     >
       <div
-        className="bg-black pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+        className={cn(
+          'bg-[#ED2681]',
+          'cursor-pointer',
+          'block',
+          'h-10',
+          'rounded-full',
+          'shadow-lg',
+          'p-4',
+          'flex',
+          'items-center',
+          'justify-center'
+        )}
         style={{
-          transform: `translateX(${isFinished ? 'calc(100% - 12px)' : endX ? Math.max(endX - startX!, 0) : 0}px)`,
+          transform: `translateX(${
+            isFinished ? 'calc(100% - 12px)' : endX ? Math.max(endX - startX!, 0) : 0
+          }px)`,
         }}
-      ></div>
+      >
+        {isFinished ? <ArrowLeftIcon color="#B90F5D" /> : <ArrowRightIcon color="#B90F5D" />}
+      </div>
     </div>
   );
 };
