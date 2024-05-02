@@ -12,9 +12,9 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
 
   useEffect(() => {
     if (pathname.includes('auth')) {
-      setBackgroundImage("/assets/bg-login.png");
+      setBackgroundImage('/assets/bg-login.png');
     } else if (pathname.includes('onboard')) {
-      setBackgroundImage("/assets/bg-onboard.png");
+      setBackgroundImage('/assets/bg-onboard.png');
     } else if (pathname.includes('bit')) {
       setBackgroundImage('/assets/bg-purple.png');
     } else {
@@ -49,9 +49,11 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
       >
         {children}
       </div>
-      <div className="absolute inset-x-0 bottom-0 bg-[#47176E] h-[100px] overflow-hidden">
-        <MenuBar />
-      </div>
+      {pathname.includes('auth') ? null : (
+        <div className="absolute inset-x-0 bottom-0 bg-[#47176E] h-[100px] overflow-hidden">
+          <MenuBar />
+        </div>
+      )}
     </div>
   );
 }
