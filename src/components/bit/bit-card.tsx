@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { BitItem } from './bit-item';
 import { BitTab1 } from './bit-tab-1';
+import { BitItemDetail } from './bit-item-detail';
 
 export function BitCard() {
 	const [tabState, setTabState] = useState("tab1");
@@ -40,6 +41,16 @@ export function BitCard() {
 				>
 					<BitItem image={'/assets/items/item1.png'} point={400} itemName={'item1'} />
 					<BitItem image={'/assets/items/item2.png'} point={450} itemName={'item2'} />
+				</div>
+
+				{/* detail items */}
+				<div className={`flex items-start gap-2 p-2 ${tabState === 'tab3' ? 'block' : 'hidden'}`}
+					style={{ 
+						backgroundImage: `url('/assets/bg-purple-grad.png')`,
+						minHeight: '30rem'
+					}}
+				>
+					<BitItemDetail image={'/assets/items/item1.png'} point={400} itemName={'item1'} />
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 export function BitTitle() {
   return (
     <div className="flex flex-col w-full items-center justify-center p-2">

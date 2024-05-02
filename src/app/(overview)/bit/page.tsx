@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/carousel';
 import { BitCard } from '@/components/bit/bit-card';
 
-export default function CardPage() {
+export default function BitPage() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <div className="p-8 w-full mt-8">
