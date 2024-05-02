@@ -49,7 +49,7 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
       >
         {children}
       </div>
-      {pathname.includes('auth') ? null : (
+      {pathname.includes('auth') || pathname.includes('onboard') ? null : (
         <div className="absolute inset-x-0 bottom-0 bg-[#47176E] h-[100px] overflow-hidden">
           <MenuBar />
         </div>

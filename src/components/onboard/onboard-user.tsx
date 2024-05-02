@@ -9,7 +9,7 @@ interface CardUserProps {
   background: string;
 }
 
-export function OnboardUser({ chars, name } : { chars:any, name:any }) {
+export function OnboardUser({ bgColor, chars, step } : { bgColor:any, chars:any, step:any }) {
   return (
     <div
       className={cn(
@@ -18,24 +18,28 @@ export function OnboardUser({ chars, name } : { chars:any, name:any }) {
         'h-[25em]',
         'rounded-xl',
         'bg-gradient-to-b',
-        'from-[#ed2681]',
-        'to-[#841396]',
+        // 'from-[#ed2681]',
+        // 'to-[#841396]',
         'border',
         'border-black',
         'shadow-lg',
-        'overflow-hidden'
+        'overflow-hidden',
+        step !== 0 ? 'hidden' : ''
       )}
+      style={{ 
+        backgroundColor: bgColor
+       }}
     >
       <div className="flex justify-between items-center px-8 pt-8 pb-4">
         <div className="flex flex-col gap-1">
-          <div className="text-xl text-white">{name}</div>
+          <div className="text-xl text-white">{chars.value}</div>
         </div>
         <div className="flex gap-4 items-start justify-between">
           <Image src="/assets/chip.png" width={40} height={50} alt={''} />
         </div>
       </div>
-      <div className="flex justify-center">
-        <Image src={chars.path} width={240} height={240} alt='' />
+      <div className={`flex justify-center ${ !chars.image ? 'hidden' : ''}`}>
+        <Image src={chars.image} width={240} height={240} alt='' />
       </div>
       <div className="bg-[#F1F1F0] absolute bottom-0 w-full h-[80px]">
         <div className="w-full h-full flex items-center justify-between p-8">
