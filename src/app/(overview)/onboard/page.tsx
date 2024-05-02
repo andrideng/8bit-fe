@@ -25,22 +25,31 @@ export default function OnboardPage() {
   // function
   const changeStep = (direction:any) => {
     // console.log(direction, stepObj.step)
+    let icon = '/assets/onboard/icon-card.png';
     if (direction === 'incr') {
-      console.log()
-      const lastStep = stepObj.step
+      const lastStep = stepObj.step + 1
+
+      if (lastStep === 1) {
+        icon = '/assets/onboard/icon-cat.png';
+      }
+      if (lastStep === 2) {
+        icon = '/assets/onboard/icon-name.png';
+      }
       setStepObj({
         ...stepObj,
-        step: lastStep + 1
+        step: lastStep,
+        icon
       })
     }
     else if (direction === 'decr')  {
-      const lastStep = stepObj.step
+      const lastStep = stepObj.step - 1;
+
       setStepObj({
         ...stepObj,
-        step: lastStep - 1
+        step: lastStep,
+        icon
       })
     }
-    
   }
 
   return (
@@ -100,15 +109,17 @@ export default function OnboardPage() {
       </div>
 
       {/* stepper */}
-      <div className="flex absolute" style={{ 
-        'bottom': '15%'
+      <div className="flex absolute w-full" style={{ 
+        'bottom': '20%'
        }}>
         {/* next */}
-        <Image src="/assets/onboard/line-right.png" width={220} height={220} alt='' className="cursor-pointer"
+        <Image src="/assets/onboard/line-right.png" width={220} height={220} alt='' 
+          className={`absolute cursor-pointer ${stepObj.step === 0 ? 'hidden' : ''}`}
+          style={{ 'left': '0' }}
           onClick={() => changeStep('decr')} />
 
         {/* current icon */}
-        <div className="rounded-full bg-[#8533ED] absolute h-[50px] w-[50px]" style={{ 
+        <div className="rounded-full bg-[#8533ED] absolute h-[50px] w-[50px] z-50" style={{ 
           'top': '-8px',
           'left': '50%',
           'transform': 'translate(-50%)'
@@ -117,7 +128,9 @@ export default function OnboardPage() {
         </div>
 
         {/* pref */}
-        <Image src="/assets/onboard/line-left.png" width={220} height={220} alt='' className="cursor-pointer"
+        <Image src="/assets/onboard/line-left.png" width={220} height={220} alt='' 
+          className={`absolute cursor-pointer ${stepObj.step < 2 ? '' : 'hidden'}`}
+          style={{ 'right': '0' }}
           onClick={() => changeStep('incr')} />
       </div>
     </div>
