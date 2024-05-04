@@ -5,6 +5,7 @@ import './globals.css';
 import { Providers } from './provider';
 import { cn } from '@/lib/utils';
 import { GeneralLayout } from '@/components/core/layout';
+import GoogleProvider from '@/components/auth/google-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,9 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <GeneralLayout>
-            <Suspense fallback={null}>{children}</Suspense>
-          </GeneralLayout>
+          <GoogleProvider>
+            <GeneralLayout>
+              <Suspense fallback={null}>{children}</Suspense>
+            </GeneralLayout>
+          </GoogleProvider>
         </Providers>
       </body>
     </html>

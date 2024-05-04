@@ -3,8 +3,10 @@ export const COOKIES_REFRESH_TOKEN = 'refreshToken';
 export const EXTERNAL_LOGIN_PROVIDER_TYPE = {
   GOOGLE: 'GOOGLE',
 };
+export const BASE_API_URL = 'https://api.example.com';
+export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-// 
+//
 export const COLOR_VALUE = [
   {
     value: 'violet',
@@ -37,8 +39,8 @@ export const COLOR_VALUE = [
   {
     value: 'tosca',
     color_code: '#00FFC2',
-  }
-]
+  },
+];
 
 export const CHARACTER_VALUE = [
   {
@@ -76,5 +78,5 @@ export const CHARACTER_VALUE = [
   {
     value: 'Luna',
     image: '/assets/chars/luna.png',
-  }
-]
+  },
+];
