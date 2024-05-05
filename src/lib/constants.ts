@@ -1,10 +1,10 @@
 export const COOKIES_ACCESS_TOKEN = 'accessToken';
 export const COOKIES_REFRESH_TOKEN = 'refreshToken';
 export const EXTERNAL_LOGIN_PROVIDER_TYPE = {
-  GOOGLE: 'GOOGLE',
+  GOOGLE: 'google',
 };
-export const BASE_API_URL = 'https://api.example.com';
-export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+export const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
 //
 export const COLOR_VALUE = [
