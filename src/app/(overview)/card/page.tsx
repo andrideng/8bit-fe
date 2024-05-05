@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CardWallet } from '@/components/card/card-wallet';
 import { CardTransaction } from '@/components/card/card-transaction';
 import { SwipeStart } from '@/components/card/swipe-start';
+import useUser from '@/hooks/user/use-user';
 
 import {
   Carousel,
@@ -17,6 +18,7 @@ import {
 import { useCallback, useState } from 'react';
 
 export default function CardPage() {
+  const { user } = useUser();
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (

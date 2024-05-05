@@ -19,7 +19,7 @@ export default function useUser() {
   const { data, isLoading, isFetched } = useQuery<UserResponse>({
     queryKey: ["user", user?.id],
     queryFn: async () => {
-      const response = await axios.get<UserResponse>(`/user/me`);
+      const response = await axios.get<UserResponse>(`/api/user/profile`);
       return response.data;
     },
     enabled: !!user,
