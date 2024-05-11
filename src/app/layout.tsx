@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils';
 import { GeneralLayout } from '@/components/core/layout';
 import GoogleProvider from '@/components/auth/google-provider';
 
+import { Toaster } from 'sonner';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -27,6 +29,7 @@ export default function RootLayout({
             <GeneralLayout>
               <Suspense fallback={null}>{children}</Suspense>
             </GeneralLayout>
+            <Toaster richColors position="top-center" />
           </GoogleProvider>
         </Providers>
       </body>

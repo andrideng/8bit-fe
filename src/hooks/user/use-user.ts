@@ -16,14 +16,17 @@ export interface UserResponse {
 
 export default function useUser() {
   const { user } = useUserState();
+  console.log(user)
   const { data, isLoading, isFetched } = useQuery<UserResponse>({
     queryKey: ["user", user?.id],
     queryFn: async () => {
-      const response = await axios.get<UserResponse>(`/api/user/profile`);
+      const response = await axios.get<UserResponse>(`/user/profile`);
       return response.data;
     },
     enabled: !!user,
   });
+
+  console.log(data)
 
   return {
     user: data?.data,

@@ -2,14 +2,12 @@
 
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-interface CardUserProps {
-  name: string;
-  id: string;
-  avatar: string;
-  background: string;
-}
+import useUser from '@/hooks/user/use-user';
+import useSignOut from '@/hooks/auth/use-logout';
 
 export function CardUser() {
+  const { user } = useUser();
+
   return (
     <div
       className={cn(
@@ -48,8 +46,16 @@ export function CardUser() {
           'top-1/4'
         )}
       ></div>
-      <div className="bg-[#F1F1F0] absolute bottom-0 w-full h-[80px]">
-        <div className="w-full h-full flex items-center justify-between p-8">
+      <div className="absolute bottom-0 w-full h-[130px] flex flex-col items-start justify-between">
+        <div className="flex items-center gap-2 px-4 mb-2">
+          <div className="rounded-lg bg-[#ED2681] p-3 cursor-pointer">
+            <Image src="/assets/pencil.png" width={20} height={20} alt={''} />
+          </div>
+          <div className="rounded-lg bg-[#ED2681] p-3 cursor-pointer" onClick={useSignOut()}>
+            <Image src="/assets/logout.png" width={25} height={25} alt={''} />
+          </div>
+        </div>
+        <div className="bg-[#F1F1F0] w-full h-full flex items-center justify-between p-4">
           <Image src="/assets/logo-title-purple.png" width={150} height={150} alt={''} />
           <Image src="/assets/card-japan.png" width={100} height={100} alt={''} />
         </div>

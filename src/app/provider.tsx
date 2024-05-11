@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { NextUIProvider } from "@nextui-org/system";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { NextUIProvider } from '@nextui-org/system';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React, { useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
 
 export function Providers(props: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -13,13 +14,13 @@ export function Providers(props: { children: React.ReactNode }) {
             staleTime: 5 * 1000,
           },
         },
-      }),
+      })
   );
 
   return (
     <NextUIProvider>
       <QueryClientProvider client={queryClient}>
-        <>{props.children}</>
+        <SessionProvider>{props.children}</SessionProvider>
         {/* {<ReactQueryDevtools initialIsOpen={false} />} */}
       </QueryClientProvider>
     </NextUIProvider>

@@ -4,7 +4,9 @@ export const EXTERNAL_LOGIN_PROVIDER_TYPE = {
   GOOGLE: 'google',
 };
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL;
-export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+export const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET;
+export const DEFAULT_PASSWORD = "userlogin";
 
 //
 export const COLOR_VALUE = [

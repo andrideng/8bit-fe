@@ -10,7 +10,7 @@ export default function Login() {
   const isLoggedIn = cookieStore.has(COOKIES_ACCESS_TOKEN);
 
   if (isLoggedIn) {
-    redirect('/');
+    redirect('/card');
   }
 
   return (
