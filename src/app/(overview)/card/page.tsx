@@ -2,7 +2,8 @@
 
 import { CardUser } from '@/components/card/card-user';
 import { CardDraw } from '@/components/card/card-draw';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
+import { CardSetting } from '@/components/card/card-setting';
 import { CardWallet } from '@/components/card/card-wallet';
 import { CardTransaction } from '@/components/card/card-transaction';
 import { SwipeStart } from '@/components/card/swipe-start';
@@ -39,9 +40,10 @@ export default function CardPage() {
       </div>
       <div className="p-8 w-full h-full">
         <CardWallet onClickTransaction={setActiveIndex} stateIndex={activeIndex} />
-        {activeIndex === 0 && <CardUser action={true} />}
+        {activeIndex === 0 && <CardUser action={true} onSetting={setActiveIndex} />}
         {activeIndex === 1 && <CardDraw />}
         {activeIndex === 2 && <CardTransaction />}
+        {activeIndex === 3 && <CardSetting onSetting={setActiveIndex} />}
       </div>
       <div className="py-2 px-8 w-full h-full">
         <SwipeStart />

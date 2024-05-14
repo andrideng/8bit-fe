@@ -7,7 +7,12 @@ import useSignOut from '@/hooks/auth/use-logout';
 import { CHARACTER_VALUE } from '@/lib/constants';
 import { useMemo } from 'react';
 
-export function CardUser(action: any = false) {
+interface CardUserProps {
+  action: boolean;
+  onSetting: (index: number) => void;
+}
+
+export function CardUser({ action, onSetting }: CardUserProps) {
   const { user } = useUser();
   const signout = useSignOut();
 
@@ -61,11 +66,16 @@ export function CardUser(action: any = false) {
           'absolute',
           'top-1/4'
         )}
-      ></div>
+      >
+        <Image src={avatar} layout="fill" objectFit="contain" alt={''} />
+      </div>
       <div className="absolute bottom-0 w-full h-[130px] flex flex-col items-start justify-between">
         {action && (
           <div className="flex items-center gap-2 px-4 mb-2">
-            <div className="rounded-lg bg-[#ED2681] p-3 cursor-pointer">
+            <div
+              className="rounded-lg bg-[#ED2681] p-3 cursor-pointer"
+              onClick={() => onSetting(3)}
+            >
               <Image src="/assets/pencil.png" width={20} height={20} alt={''} />
             </div>
             <div className="rounded-lg bg-[#ED2681] p-3 cursor-pointer" onClick={signout}>
