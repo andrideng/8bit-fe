@@ -57,7 +57,6 @@ function _GoogleButton({ children }: { children: React.ReactNode }) {
     if (session) {
       const user = session.user as ExtendedProfile;
       if (!user) return;
-      console.log('user', user);
       setUser({
         id: user.sub as string,
         email: user.email as string,

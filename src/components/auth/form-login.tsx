@@ -30,11 +30,7 @@ export function FormLogin() {
       const identityType = isEmail ? 'email' : isPhoneNumber ? 'phone_number' : '';
 
       let body: { [key: string]: string } = {};
-      console.log(identityType);
       body[identityType] = identity;
-      body['password'] = DEFAULT_PASSWORD;
-
-      console.log(body);
 
       const response = await fetch(BASE_API_URL + '/auth/login', {
         method: 'POST',
@@ -45,7 +41,6 @@ export function FormLogin() {
       });
 
       const parsedResponse = await response.json();
-      console.log(parsedResponse);
       const { challengeId } = parsedResponse;
       if (response.ok) {
         setOtpChallengeId(challengeId);

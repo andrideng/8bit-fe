@@ -2,11 +2,16 @@ import axios from '@/lib/axios';
 import { useUserState } from '@/state/user-state';
 import { useQuery } from '@tanstack/react-query';
 
+export interface UserResponse {
+  card: User;
+}
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
+  full_name: string;
+  card: Card;
+}
+
+export interface Card {
+  color: string;
   avatar: string;
 }
 
@@ -16,9 +21,8 @@ export interface UserResponse {
 
 export default function useUser() {
   const { user } = useUserState();
-  console.log(user)
   const { data, isLoading, isFetched } = useQuery<UserResponse>({
-    queryKey: ["user", user?.id],
+    queryKey: ['user', user?.id],
     queryFn: async () => {
       const response = await axios.get<UserResponse>(`/user/profile`);
       return response.data;
@@ -26,10 +30,8 @@ export default function useUser() {
     enabled: !!user,
   });
 
-  console.log(data)
-
   return {
-    user: data?.data,
+    user: data?.card,
     isLoading,
     isFetched,
   };

@@ -2,14 +2,13 @@
 
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-interface CardUserProps {
-  name: string;
-  id: string;
-  avatar: string;
+interface OnBoardUserProps {
+  name?: string;
+  avatar?: string;
   background: string;
 }
 
-export function OnboardUser({ bgColor, chars, step } : { bgColor:any, chars:any, step:any }) {
+export function OnboardUser({ name, avatar, background }: OnBoardUserProps) {
   return (
     <div
       className={cn(
@@ -23,24 +22,25 @@ export function OnboardUser({ bgColor, chars, step } : { bgColor:any, chars:any,
         'border',
         'border-black',
         'shadow-lg',
-        'overflow-hidden',
-        step !== 0 ? 'hidden' : ''
+        'overflow-hidden'
       )}
-      style={{ 
-        backgroundColor: bgColor
-       }}
+      style={{
+        backgroundColor: background,
+      }}
     >
       <div className="flex justify-between items-center px-8 pt-8 pb-4">
         <div className="flex flex-col gap-1">
-          <div className="text-xl text-white">{chars.value}</div>
+          <div className="text-xl text-white">{name}</div>
         </div>
         <div className="flex gap-4 items-start justify-between">
           <Image src="/assets/chip.png" width={40} height={50} alt={''} />
         </div>
       </div>
-      <div className={`flex justify-center ${ !chars.image ? 'hidden' : ''}`}>
-        <Image src={chars.image} width={240} height={240} alt='' />
-      </div>
+      {avatar && (
+        <div className="flex justify-center">
+          <Image src={avatar} width={240} height={240} alt="" />
+        </div>
+      )}
       <div className="bg-[#F1F1F0] absolute bottom-0 w-full h-[80px]">
         <div className="w-full h-full flex items-center justify-between p-8">
           <Image src="/assets/logo-title-purple.png" width={100} height={100} alt={''} />

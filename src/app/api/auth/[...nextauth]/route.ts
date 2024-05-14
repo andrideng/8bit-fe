@@ -56,16 +56,12 @@ const handler = NextAuth({
             throw new Error('Access token, refresh token, or user data missing from response');
           }
 
-          console.log('parsedRes', parsedRes);
-
           // Set cookies
           const cookieStore = cookies();
           cookieStore.set(COOKIES_ACCESS_TOKEN, token);
 
           // Update user state
           const user = params.profile as ExtendedProfile;
-
-          console.log('User state updated successfully');
           return {
             ...params.token,
             accessToken: token,

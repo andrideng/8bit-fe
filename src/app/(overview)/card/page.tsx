@@ -18,7 +18,6 @@ import {
 import { useCallback, useState } from 'react';
 
 export default function CardPage() {
-  const { user } = useUser();
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -40,7 +39,7 @@ export default function CardPage() {
       </div>
       <div className="p-8 w-full h-full">
         <CardWallet onClickTransaction={setActiveIndex} stateIndex={activeIndex} />
-        {activeIndex === 0 && <CardUser />}
+        {activeIndex === 0 && <CardUser action={true} />}
         {activeIndex === 1 && <CardDraw />}
         {activeIndex === 2 && <CardTransaction />}
       </div>
