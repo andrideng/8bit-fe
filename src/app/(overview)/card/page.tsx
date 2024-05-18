@@ -7,18 +7,18 @@ import { CardSetting } from '@/components/card/card-setting';
 import { CardWallet } from '@/components/card/card-wallet';
 import { CardTransaction } from '@/components/card/card-transaction';
 import { SwipeStart } from '@/components/card/swipe-start';
-import useUser from '@/hooks/user/use-user';
+import useBanner from '@/hooks/banner/use-banner';
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { useCallback, useState } from 'react';
 
 export default function CardPage() {
+  const { banner } = useBanner();
+  console.log(banner)
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (

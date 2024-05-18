@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import useTransaction from '@/hooks/user/use-transaction';
 
 interface CardUserProps {
   name: string;
@@ -11,6 +12,8 @@ interface CardUserProps {
 }
 
 export function CardTransaction() {
+  const { transaction } = useTransaction();
+  
   return (
     <div
       className={cn(

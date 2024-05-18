@@ -19,13 +19,15 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
       setBackgroundImage('/assets/bg-onboard.png');
     } else if (pathname.includes('bit')) {
       setBackgroundImage('/assets/bg-purple.png');
+    } else if (pathname.includes('setting')) {
+      setBackgroundImage('/assets/bg-setting.png');
     } else {
       setBackgroundImage('/assets/bg-pink.png');
     }
   }, [pathname]);
 
   // menu bar show if its not on auth page or onboard page
-  const hasMenuBar = !pathname.includes('auth') && !pathname.includes('onboard');
+  const hasMenuBar = !pathname.includes('auth') && !pathname.includes('onboard') && !pathname.includes('setting');
 
   return (
     <div

@@ -6,14 +6,15 @@ import useUser from '@/hooks/user/use-user';
 import useSignOut from '@/hooks/auth/use-logout';
 import { CHARACTER_VALUE } from '@/lib/constants';
 import { useMemo } from 'react';
+import Link from 'next/link';
 
 const SETTING_MENU = [
-  { key: 'pin', label: 'Change PIN', status: true },
-  { key: 'email', label: 'Link Email', status: true },
+  { key: 'setting/change-password', label: 'Change PIN', status: true },
+  { key: 'setting/link-email', label: 'Link Email', status: true },
 
-  { key: 'phone', label: 'Link Phone', status: true },
+  { key: 'setting/link-phone', label: 'Link Phone', status: true },
   {
-    key: 'card',
+    key: 'onboard',
     label: 'Change Card Design',
     status: true,
   },
@@ -26,6 +27,8 @@ interface CardSettingProps {
 export function CardSetting({ onSetting }: CardSettingProps) {
   const { user } = useUser();
   const signout = useSignOut();
+
+  console.log('user', user)
 
   return (
     <div
@@ -56,9 +59,12 @@ export function CardSetting({ onSetting }: CardSettingProps) {
               >
                 {item.label}
               </div>
-              <div className="cursor-pointer flex items-center justify-center" onClick={() => onSetting(0)}>
+              <Link
+                className="cursor-pointer flex items-center justify-center"
+                href={`/${item.key}`}
+              >
                 <Image src="/assets/next.png" width={13} height={13} alt={''} />
-              </div>
+              </Link>
             </div>
           ))}
         </div>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import useUser from '@/hooks/user/use-user';
 import useSignOut from '@/hooks/auth/use-logout';
-import { CHARACTER_VALUE } from '@/lib/constants';
+import { CHARACTER_VALUE, COLOR_VALUE } from '@/lib/constants';
 import { useMemo } from 'react';
 
 interface CardUserProps {
@@ -28,7 +28,16 @@ export function CardUser({ action, onSetting }: CardUserProps) {
     return `/assets/char-image.png`;
   }, [user]);
 
-  console.log('avatar', avatar);
+  const background = useMemo(() => {
+    const card = user?.card;
+    if (card?.color) {
+      const background = COLOR_VALUE.find((color) => color.value === card.color);
+      if (background) {
+        return 'bg-[' + background.color_code + ']';
+      }
+    }
+    return 'bg-gradient-to-b from-[#ed2681] to-[#841396]';
+  }, [user]);
 
   return (
     <div
@@ -37,13 +46,11 @@ export function CardUser({ action, onSetting }: CardUserProps) {
         'w-full',
         'h-[503px]',
         'rounded-xl',
-        'bg-gradient-to-b',
-        'from-[#ed2681]',
-        'to-[#841396]',
         'border',
         'border-black',
         'shadow-lg',
-        'overflow-hidden'
+        'overflow-hidden',
+        background
       )}
     >
       <div className="flex justify-between items-center px-8 py-12">
