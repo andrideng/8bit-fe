@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import useUser from '@/hooks/user/use-user';
 import useSignOut from '@/hooks/auth/use-logout';
 import { CHARACTER_VALUE, COLOR_VALUE } from '@/lib/constants';
+import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 
 interface CardUserProps {
@@ -13,7 +14,13 @@ interface CardUserProps {
 }
 
 export function CardUser({ action, onSetting }: CardUserProps) {
+  const router = useRouter();
   const { user } = useUser();
+  
+  if (user?.card === null) {
+    router.push('/onboard');
+  }
+
   const signout = useSignOut();
 
   const avatar = useMemo(() => {
@@ -33,10 +40,10 @@ export function CardUser({ action, onSetting }: CardUserProps) {
     if (card?.color) {
       const background = COLOR_VALUE.find((color) => color.value === card.color);
       if (background) {
-        return 'bg-[' + background.color_code + ']';
+        return background.color_code; // Return the color code instead of class name
       }
     }
-    return 'bg-gradient-to-b from-[#ed2681] to-[#841396]';
+    return null; // Return null if no specific color is found
   }, [user]);
 
   return (
@@ -50,7 +57,7 @@ export function CardUser({ action, onSetting }: CardUserProps) {
         'border-black',
         'shadow-lg',
         'overflow-hidden',
-        background
+        background ? `bg-[${background}]` : 'bg-gradient-to-b from-[#ed2681] to-[#841396]'
       )}
     >
       <div className="flex justify-between items-center px-8 py-12">

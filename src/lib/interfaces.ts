@@ -7,13 +7,13 @@ export interface ExtendedProfile extends Profile {
 
 export interface TokenUser {
   user_id: number
-  membership_id: string
-  email: string
-  email_verified: boolean
-  updated_at: string
-  created_at: string
   phone_number: any
-  phone_verified: any
+  email: string
+  membership_id: string
+  locked: boolean
+  wishlist: any[]
+  created_at: string
+  updated_at: string
   iat: number
   exp: number
 }

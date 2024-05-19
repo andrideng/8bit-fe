@@ -61,13 +61,13 @@ export function FormOtp({ open = false, onOpenChange, expired, challangeId }: Fo
         setUser({
           id: String(user.user_id),
           email: user.email as string,
-          first_name: '',
-          last_name: '',
+          membership_id: user.membership_id,
+          whishlist: user.wishlist || [],
         });
         toast.success('OTP Verified Successfully', {
           duration: 3000,
         });
-        router.replace('/onboard');
+        router.replace('/card');
         onOpenChange(false);
       } else {
         toast.error(parsedRes.message, {

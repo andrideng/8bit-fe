@@ -4,8 +4,10 @@ import { createJSONStorage, persist } from "zustand/middleware";
 export interface UserAuthData {
   id: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  membership_id?: string;
+  whishlist?: any[];
+  first_name?: string;
+  last_name?: string;
 }
 
 interface UserState {

@@ -5,16 +5,16 @@ import { OnboardUser } from '@/components/onboard/onboard-user';
 import { CHARACTER_VALUE, COLOR_VALUE } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useUserState } from '@/state/user-state';
 
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import axios from '@/lib/axios';
 import { useRouter } from 'next/navigation';
+import useUser from '@/hooks/user/use-user';
 
 export default function OnboardPage() {
   const router = useRouter();
-  const { user, setUser } = useUserState();
+  const { user } = useUser();
   const [stepObj, setStepObj] = useState({
     step: 0,
     color: {
@@ -29,6 +29,30 @@ export default function OnboardPage() {
     name: '',
   });
   const [message, setMessage] = useState('');
+
+  console.log('user', user);
+
+  useEffect(() => {
+    if (user && user?.card !== null) {
+      const userColor = COLOR_VALUE.find((x) => x.value === user.card.color);
+      const userChar = CHARACTER_VALUE.find((x) => x.value === user.card.avatar);
+
+      setStepObj({
+        ...stepObj,
+        color: {
+          value: userColor?.value || '',
+          code: userColor?.color_code || '',
+        },
+        chars: {
+          value: userChar?.value || '',
+          image: userChar?.image || '',
+        },
+        name: user.full_name,
+      });
+    }
+  }, [user]);
+
+  console.log('stepObj', stepObj);
 
   // function
   const changeStep = (direction: string) => {
@@ -71,15 +95,6 @@ export default function OnboardPage() {
         });
 
         if (response.status === 200) {
-          const { data } = response;
-          if (user) {
-            setUser({
-              id: user.id as string,
-              email: user.email as string,
-              first_name: data.full_name,
-              last_name: data.full_name,
-            });
-          }
           router.push('/card');
         } else {
           setMessage('Failed to create user profile');
@@ -91,7 +106,7 @@ export default function OnboardPage() {
     } else {
       setMessage('Please fill color, character, and name');
     }
-  }, [router, stepObj]);
+  }, [router, stepObj, user]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">

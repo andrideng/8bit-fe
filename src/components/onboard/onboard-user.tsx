@@ -28,13 +28,11 @@ export function OnboardUser({ name, avatar, background }: OnBoardUserProps) {
         backgroundColor: background,
       }}
     >
-      <div className="flex justify-between items-center px-8 pt-8 pb-4">
-        <div className="flex flex-col gap-1">
-          <div className="text-xl text-white">{name}</div>
+      <div className="flex flex-wrap justify-between items-center px-8 pt-8 pb-4">
+        <div className="text-xl text-white flex-1 overflow-hidden">
+          <div className="break-words">{name}</div>
         </div>
-        <div className="flex gap-4 items-start justify-between">
-          <Image src="/assets/chip.png" width={40} height={50} alt={''} />
-        </div>
+        <Image src="/assets/chip.png" width={40} height={50} alt="" className="self-end" />
       </div>
       {avatar && (
         <div className="flex justify-center">
