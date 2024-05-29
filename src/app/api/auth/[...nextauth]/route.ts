@@ -33,6 +33,8 @@ const handler = NextAuth({
       try {
         if (params.account?.provider === 'google' && params.profile) {
           const { id_token } = params.account;
+          console.log("id_token", id_token)
+          console.log(EXTERNAL_LOGIN_PROVIDER_TYPE.GOOGLE)
           const res = await fetch(BASE_API_URL + '/auth/oauth/token', {
             method: 'POST',
             body: JSON.stringify({
@@ -48,6 +50,8 @@ const handler = NextAuth({
           if (!res.ok) {
             throw new Error('Failed to fetch token from backend');
           }
+
+          console.log("Response oauth", res)
 
           const parsedRes = await res.json();
           const { token } = parsedRes;
@@ -81,7 +85,7 @@ const handler = NextAuth({
       } catch (error) {
         console.error('Error during JWT processing:', error);
         // If an error occurs, return the token without processing
-        return params.token;
+        throw error;
       }
     },
   },

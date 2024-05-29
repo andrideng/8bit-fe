@@ -8,7 +8,7 @@ import { MenuBar } from './menubar';
 import { useUserState } from '@/state/user-state';
 
 export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const {user} = useUserState();
+  const { user } = useUserState();
   const pathname = usePathname();
   const [backgroundImage, setBackgroundImage] = useState<string>('/assets/bg-pink.png');
 
@@ -27,7 +27,8 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
   }, [pathname]);
 
   // menu bar show if its not on auth page or onboard page
-  const hasMenuBar = !pathname.includes('auth') && !pathname.includes('onboard') && !pathname.includes('setting');
+  const hasMenuBar =
+    !pathname.includes('auth') && !pathname.includes('onboard') && !pathname.includes('setting');
 
   return (
     <div
@@ -50,7 +51,7 @@ export function GeneralLayout({ children }: Readonly<{ children: React.ReactNode
           'items-center',
           'justify-center',
           'w-full',
-          'h-full',
+          hasMenuBar ? 'h-[calc(100vh-100px)]' : 'h-full',
           'overflow-y-auto'
         )}
       >

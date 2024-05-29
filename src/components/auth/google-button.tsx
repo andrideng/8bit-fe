@@ -7,10 +7,10 @@ import {
   EXTERNAL_LOGIN_PROVIDER_TYPE,
   GOOGLE_CLIENT_ID,
 } from '@/lib/constants';
+import { toast } from 'sonner';
 import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { jwtDecode } from 'jwt-decode';
 import { Button } from '../ui/button';
 import { useUserState } from '@/state/user-state';
@@ -86,10 +86,19 @@ function _GoogleButton({ children }: { children: React.ReactNode }) {
   const handleLogin = async () => {
     // googleLogin();
     try {
-      await signIn('google', { callbackUrl: '/auth/login' });
+      await signIn('google', {
+        callbackUrl: '/',
+      });
+
+      toast.success('Google sign in successful', {
+        duration: 3000,
+      });
     } catch (error) {
       // Handle error
       console.error('Google sign in error:', error);
+      toast.error('Google sign in error', {
+        duration: 3000,
+      });
     }
   };
 

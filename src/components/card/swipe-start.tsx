@@ -1,96 +1,130 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import ArrowRightIcon from '../icons/arrows-right';
 import ArrowLeftIcon from '../icons/arrows-left';
 
-export const SwipeStart: React.FC = () => {
-  const [startX, setStartX] = useState<number | null>(null);
-  const [endX, setEndX] = useState<number | null>(null);
-  const [isFinished, setIsFinished] = useState<boolean>(false);
+import { useSwipeable } from 'react-swipeable';
 
-  // Adjust this factor to control the sensitivity of the sliding movement
-  const sensitivityFactor = 0.5;
+interface SwipeStartProps {
+  position: number;
+  onChange: (position: number) => void;
+}
 
-  const handleStart = (clientX: number) => {
-    setStartX(clientX);
-    setIsFinished(false); // Reset finish state when dragging starts
-  };
+function findLeft(element: HTMLDivElement | null) {
+  if (!element) return 0; // Add null check here
+  var rec = element.getBoundingClientRect();
+  return rec.left + window.scrollX;
+}
 
-  const handleMove = (clientX: number) => {
-    if (!isFinished) {
-      setEndX(clientX);
-    }
-  };
+export const SwipeStart: React.FC<SwipeStartProps> = ({ position, onChange }) => {
+  const [overlayPosition, setOverlayPosition] = useState(0);
+  const [swipeComplete, setSwipeComplete] = useState(false);
 
-  const handleEnd = () => {
-    if (startX !== null && endX !== null) {
-      const deltaX = endX - startX;
-      const sensitivityAdjustedDeltaX = deltaX * sensitivityFactor;
-      if (sensitivityAdjustedDeltaX > 50) {
-        // Swipe from left to right
-        setIsFinished(true); // Set finish state when dragging ends at the end position
+  useEffect(() => {
+    setOverlayPosition(position);
+  }, [position]);
+
+  const parent = useRef<HTMLDivElement | null>(null);
+
+  const reset = useCallback(() => {
+    setSwipeComplete(false);
+    setOverlayPosition(0);
+    onChange(0);
+  }, [onChange]);
+
+  const handlers = useSwipeable({
+    onSwipedRight: (data) => {
+      if (swipeComplete) return;
+      const buttonWidth = parent.current?.offsetWidth || 0;
+      if (data.velocity > 0.5) {
+        setOverlayPosition(100); // Set position to 100%
+        onChange(100);
+        setSwipeComplete(true);
+        setTimeout(() => {
+          console.log('swipe done');
+        }, 100);
+      } else {
+        const offsetLeft = findLeft(parent.current);
+        const startPos = Math.abs(data.initial[0] - offsetLeft);
+        if (
+          startPos <= 100 &&
+          (data.event.type === 'touchend'
+            ? // @ts-ignore
+              data.event?.changedTouches[0].clientX
+            : // @ts-ignore
+              data.event?.offsetX) >
+            0.5 * buttonWidth
+        ) {
+          setOverlayPosition(100); // Set position to 100%
+          onChange(100);
+          setSwipeComplete(true);
+          setTimeout(() => {
+            console.log('swipe done');
+          }, 100);
+        } else setOverlayPosition(0);
       }
-    }
-    // Reset swipe values
-    setStartX(null);
-    setEndX(null);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    handleStart(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    handleMove(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    handleEnd();
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    handleStart(e.clientX);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    handleMove(e.clientX);
-  };
-
-  const handleMouseUp = () => {
-    handleEnd();
-    window.removeEventListener('mousemove', handleMouseMove);
-    window.removeEventListener('mouseup', handleMouseUp);
-  };
+    },
+    onSwiping: (data) => {
+      if (swipeComplete) return;
+      const buttonWidth = parent.current?.offsetWidth || 0;
+      const offsetLeft = findLeft(parent.current);
+      const startPos = Math.abs(data.initial[0] - offsetLeft);
+      if (startPos <= 100) {
+        if (data.event.type && data.event.type === 'touchmove') {
+          // @ts-ignore
+          const newPosition = ((data.event.touches[0].clientX - offsetLeft) / buttonWidth) * 100;
+          if (newPosition > 0 && newPosition <= 100) {
+            setOverlayPosition(Number(newPosition.toFixed(0)));
+            onChange(Number(newPosition.toFixed(0)));
+          }
+        } else {
+          // @ts-ignore
+          const newPosition = (data.event.offsetX / buttonWidth) * 100;
+          if (newPosition > 0 && newPosition <= 100) {
+            setOverlayPosition(Number(newPosition.toFixed(0)));
+            onChange(Number(newPosition.toFixed(0)));
+          }
+        }
+      }
+    },
+    delta: 10,
+    trackMouse: true,
+    trackTouch: true,
+  });
 
   return (
     <div
+      {...handlers}
+      ref={(t) => {
+        handlers.ref(t);
+        parent.current = t;
+      }}
       className={cn(
-        isFinished ? 'bg-[#920A48]' : 'bg-white',
+        swipeComplete ? 'bg-[#920A48]' : 'bg-white',
         'shadow-inner',
         'w-full',
         'peer',
         'inline-flex',
         'h-12',
-        'w-full',
         'shrink-0',
         'items-center',
         'rounded-full',
         'border-2',
         'border-transparent',
         'transition-colors',
-        'p-1'
+        'p-1',
+        'relative',
+        'overflow-hidden'
       )}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onMouseDown={handleMouseDown}
     >
       <div
+        style={{
+          left: `${overlayPosition}%`, // Add % here
+          transition: 'left 0.1s',
+          transform: `translateX(-${overlayPosition}%)`,
+        }}
         className={cn(
           'bg-[#ED2681]',
           'cursor-pointer',
@@ -101,15 +135,26 @@ export const SwipeStart: React.FC = () => {
           'p-4',
           'flex',
           'items-center',
-          'justify-center'
+          'justify-center',
+          'absolute'
         )}
-        style={{
-          transform: `translateX(${
-            isFinished ? 'calc(100% - 12px)' : endX ? Math.max(endX - startX!, 0) : 0
-          }px)`,
-        }}
       >
-        {isFinished ? <ArrowLeftIcon color="#B90F5D" /> : <ArrowRightIcon color="#B90F5D" />}
+        {swipeComplete ? (
+          <ArrowLeftIcon color="#B90F5D" onClick={reset} />
+        ) : (
+          <ArrowRightIcon color="#B90F5D" />
+        )}
+      </div>
+
+      <div className={cn(
+        'w-full',
+        'uppercase',
+        'font-black',
+        'text-md',
+        'px-2',
+        swipeComplete ? 'text-left text-[#C4266E]' : 'text-[#C9C2C5] text-right',
+      )}>
+        {swipeComplete ? 'Swipe to reset' : 'Swipe to start'}
       </div>
     </div>
   );

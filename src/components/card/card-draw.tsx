@@ -23,14 +23,14 @@ export function CardDraw() {
         'border',
         'border-black',
         'shadow-lg',
-        'overflow-hidden',
+        'overflow-hidden'
       )}
     >
       <div className="flex flex-col gap-2 w-full py-12 px-8 h-full items-center justify-center">
         {[1, 10, 50, 100].map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-2 justify-between items-center py-2 px-8 rounded-xl text-[#522E91]"
+            className="grid grid-cols-2 justify-between items-center py-2 px-8 rounded-xl text-[#522E91] cursor-pointer"
             style={{
               backgroundImage: 'linear-gradient(180deg, #00ffc2 0%, #00e0ff 45.41%)',
             }}

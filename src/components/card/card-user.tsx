@@ -6,7 +6,7 @@ import useUser from '@/hooks/user/use-user';
 import useSignOut from '@/hooks/auth/use-logout';
 import { CHARACTER_VALUE, COLOR_VALUE } from '@/lib/constants';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 interface CardUserProps {
   action: boolean;
@@ -16,7 +16,9 @@ interface CardUserProps {
 export function CardUser({ action, onSetting }: CardUserProps) {
   const router = useRouter();
   const { user } = useUser();
-  
+
+  const [background, setBackground] = useState<string | null>(null);
+
   if (user?.card === null) {
     router.push('/onboard');
   }
@@ -35,15 +37,14 @@ export function CardUser({ action, onSetting }: CardUserProps) {
     return `/assets/char-image.png`;
   }, [user]);
 
-  const background = useMemo(() => {
+  useEffect(() => {
     const card = user?.card;
     if (card?.color) {
       const background = COLOR_VALUE.find((color) => color.value === card.color);
       if (background) {
-        return background.color_code; // Return the color code instead of class name
+        setBackground(`${background.color_code}`);
       }
     }
-    return null; // Return null if no specific color is found
   }, [user]);
 
   return (
@@ -56,9 +57,12 @@ export function CardUser({ action, onSetting }: CardUserProps) {
         'border',
         'border-black',
         'shadow-lg',
-        'overflow-hidden',
-        background ? `bg-[${background}]` : 'bg-gradient-to-b from-[#ed2681] to-[#841396]'
+        'overflow-hidden'
       )}
+      style={{
+        background: background ? background : '',
+        backgroundImage: background ? '' : 'linear-gradient(to bottom, #ed2681, #841396)',
+      }}
     >
       <div className="flex justify-between items-center px-8 py-12">
         <div className="flex flex-col gap-1">
