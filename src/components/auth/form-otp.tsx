@@ -52,11 +52,11 @@ export function FormOtp({ open = false, onOpenChange, expired, challangeId }: Fo
       });
 
       const parsedRes = await res.json();
-      const { token } = parsedRes;
-      // decode the token
-      const user = jwtDecode<TokenUser>(token);
 
       if (res.ok) {
+        const { token } = parsedRes;
+        // decode the token
+        const user = jwtDecode<TokenUser>(token);
         Cookies.set(COOKIES_ACCESS_TOKEN, token);
         setUser({
           id: String(user.user_id),
