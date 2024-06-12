@@ -44,9 +44,6 @@ function _GoogleButton({ children }: { children: React.ReactNode }) {
 
       Cookies.set(COOKIES_ACCESS_TOKEN, accessToken);
       Cookies.set(COOKIES_REFRESH_TOKEN, refreshToken);
-      toast.success('Sign in Successful', {
-        duration: 3000,
-      });
     },
     [setUser]
   );

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import useWithdraw from '@/hooks/withdraw/use-withdraw';
 interface CardUserProps {
   name: string;
   id: string;
@@ -10,6 +11,7 @@ interface CardUserProps {
 }
 
 export function CardDraw() {
+  const { data, isLoading, isFetched } = useWithdraw();
   return (
     <div
       className={cn(
