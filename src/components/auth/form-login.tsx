@@ -105,6 +105,10 @@ export function FormLogin() {
           duration: 3000,
         });
         return;
+      } else {
+        toast.error(parsedResponse.message, {
+          duration: 3000,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -141,11 +145,11 @@ export function FormLogin() {
                 <InputOTPSlot className="bg-white text-black rounded-md" index={5} />
               </InputOTPGroup>
             </InputOTP>
-            <div className="flex items-center justify-between w-full">
+            {/* <div className="flex items-center justify-between w-full">
               <Link href="/auth/forgot" className="text-white text-sm">
                 Forgot my pin
               </Link>
-            </div>
+            </div> */}
           </div>
           <div className="space-y-2 flex flex-col w-full px-4">
             <Button variant="default" onClick={onSubmit}>

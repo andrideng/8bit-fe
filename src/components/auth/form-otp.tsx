@@ -67,7 +67,7 @@ export function FormOtp({ open = false, onOpenChange, expired, challangeId }: Fo
         toast.success('OTP Verified Successfully', {
           duration: 3000,
         });
-        router.replace('/card');
+        router.replace('/auth/setup');
         onOpenChange(false);
       } else {
         toast.error(parsedRes.message, {
