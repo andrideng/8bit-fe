@@ -3,6 +3,9 @@
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import useWallet from '@/hooks/user/use-wallet';
+import axios from 'axios';
+import { BASE_API_URL } from '@/lib/constants';
+import { toast } from 'sonner';
 interface CardUserProps {
   name: string;
   id: string;
@@ -16,6 +19,38 @@ export function CardDraw() {
   if (!wallet) {
     return null;
   }
+
+  const handleClickDraw = async (value: number) => {
+    try {
+      const response = await axios.post(BASE_API_URL + '/v1/wallet/withdraw', {
+        user_id: 1,
+        location_id: 1,
+        ref_id: 'unique_ref_id',
+        coin: value,
+        point: 0,
+        nonce: 'ccd3e8d6-3f11-bd8f-1abf-912a5b4fdcbc',
+      });
+
+      if (response.status === 200) {
+        const { data } = response;
+        const { message } = data;
+        toast.success(message || 'Withdraw Success', {
+          duration: 3000,
+        });
+      } else {
+        const { data } = response;
+        const { message } = data;
+        toast.error(message || 'Something went wrong', {
+          duration: 3000,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Something went wrong', {
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <div
@@ -44,6 +79,7 @@ export function CardDraw() {
                 ? 'text-[#E2E419] bg-[#EC1F7D]'
                 : 'text-[#BDBDBD] bg-[#A3A3A3]'
             )}
+            onClick={() => handleClickDraw(item)}
           >
             <div className="flex flex-col items-start">
               <div className="text-3xl font-bold">DRAW</div>
