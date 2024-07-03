@@ -3,7 +3,7 @@
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import Cookies from 'js-cookie';
@@ -14,6 +14,7 @@ import { useUserState } from '@/state/user-state';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { TokenUser } from '@/lib/interfaces';
+import { useEffect, useState } from 'react';
 
 interface FormLoginProps {
   open: boolean;
@@ -30,6 +31,7 @@ const FormSchema = z.object({
 
 export function FormOtp({ open = false, onOpenChange, expired, challangeId }: FormLoginProps) {
   const router = useRouter();
+  const [countdown, setCountdown] = useState('');
   const { setUser } = useUserState();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -81,6 +83,23 @@ export function FormOtp({ open = false, onOpenChange, expired, challangeId }: Fo
       });
     }
   }
+
+  useEffect(() => {
+    if (expired) {
+      setCountdown(String(Math.floor((expired - Date.now()) / 1000)));
+      const interval = setInterval(() => {
+        const now = Date.now();
+        const timeLeft = Math.floor((expired - now) / 1000);
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          setCountdown('');
+        } else {
+          setCountdown(String(timeLeft));
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [expired]);
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[300px] bg-[#2F105E] border-none rounded-xl">
@@ -109,7 +128,12 @@ export function FormOtp({ open = false, onOpenChange, expired, challangeId }: Fo
           <div className="text-center text-white text-sm">
             Didn’t Receive the OTP?
             <br />
-            <span className="text-[#EF569F]">Resend OTP in {expired} seconds</span>
+            {/* otp expired countdown */}
+            {expired ? (
+              <span className="text-[#EF569F]">Resend OTP in {countdown} seconds</span>
+            ) : (
+              <span className="text-[#EF569F]">Resend OTP</span>
+            )}
           </div>
         </div>
       </DialogContent>

@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import useUser from '@/hooks/user/use-user';
 import useSignOut from '@/hooks/auth/use-logout';
 import { CHARACTER_VALUE, COLOR_VALUE } from '@/lib/constants';
-import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 interface CardUserProps {
@@ -14,14 +13,9 @@ interface CardUserProps {
 }
 
 export function CardUser({ action, onSetting }: CardUserProps) {
-  const router = useRouter();
   const { user } = useUser();
 
   const [background, setBackground] = useState<string | null>(null);
-
-  if (user?.card === null) {
-    router.push('/onboard');
-  }
 
   const signout = useSignOut();
 

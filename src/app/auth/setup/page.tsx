@@ -4,13 +4,15 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 import { Button } from '@/components/ui/button';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
-import axios from 'axios';
+import axios from '@/lib/axios';
 import { BASE_API_URL } from '@/lib/constants';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function ForgotPassword() {
   const router = useRouter();
   const [pin, setPin] = useState('');
+
+  console.log(pin)
 
   const onSubmit = useCallback(async () => {
     if (pin.length < 6) {
@@ -23,7 +25,6 @@ export default function ForgotPassword() {
     try {
       const response = await axios.post(BASE_API_URL + '/user/password', {
         password: pin,
-        new_password: pin,
       });
 
       if (response.status === 200) {
@@ -32,7 +33,7 @@ export default function ForgotPassword() {
         toast.success(message || 'Password updated', {
           duration: 3000,
         });
-        router.push('/card');
+        router.push('/onboard');
       } else {
         const { data } = response;
         const {message} = data;
@@ -57,7 +58,7 @@ export default function ForgotPassword() {
         </div>
       </div>
       <div className="px-4 w-full space-y-2">
-        <InputOTP maxLength={6}>
+        <InputOTP maxLength={6} value={pin} onChange={(value) => setPin(value)}>
           <InputOTPGroup className="gap-1">
             <InputOTPSlot className="bg-white text-black rounded-md" index={0} />
             <InputOTPSlot className="bg-white text-black rounded-md" index={1} />
@@ -69,7 +70,9 @@ export default function ForgotPassword() {
         </InputOTP>
       </div>
       <div className="space-y-2 flex flex-col w-full px-4">
-        <Button variant="default">Next</Button>
+        <Button variant="default" onClick={onSubmit}>
+          Next
+        </Button>
       </div>
     </div>
   );

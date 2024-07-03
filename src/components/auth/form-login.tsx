@@ -21,7 +21,8 @@ export function FormLogin() {
   const { setUser } = useUserState();
 
   const [otpOpen, setOtpOpen] = useState(false);
-  const [otpExpired, setOtpExpired] = useState(0); // [seconds]
+  // 30 seconds
+  const [otpExpired, setOtpExpired] = useState(0);
   const [otpChallengeId, setOtpChallengeId] = useState('');
   const [identity, setIdentity] = useState('');
   const [needPin, setNeedPin] = useState(false);
@@ -79,7 +80,8 @@ export function FormLogin() {
         if (challengeId) {
           setOtpOpen(true);
           setOtpChallengeId(challengeId);
-          setOtpExpired(300);
+          // set otp expired to 30 seconds
+          setOtpExpired(Date.now() + 30000);
           return;
         }
         if (token) {
@@ -100,10 +102,17 @@ export function FormLogin() {
         }
       }
       if (response.status === 400) {
-        setNeedPin(true);
-        toast.info('Please enter your pin', {
-          duration: 3000,
-        });
+        if (!needPin && parsedResponse.message === "Please enter your password") {
+          setNeedPin(true);
+          toast.info('Please enter your pin', {
+            duration: 3000,
+          });
+          return;
+        } else {
+          toast.error(parsedResponse.message, {
+            duration: 3000,
+          });
+        }
         return;
       } else {
         toast.error(parsedResponse.message, {

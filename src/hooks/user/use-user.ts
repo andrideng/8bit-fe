@@ -21,7 +21,7 @@ export interface UserResponse {
 
 export default function useUser() {
   const { user } = useUserState();
-  const { data, isLoading, isFetched } = useQuery<UserResponse>({
+  const { data, isLoading, isFetched, refetch } = useQuery<UserResponse>({
     queryKey: ['user', user?.id],
     queryFn: async () => {
       const response = await axios.get<UserResponse>(`/user/profile`);
@@ -34,5 +34,6 @@ export default function useUser() {
     user: data?.card,
     isLoading,
     isFetched,
+    refetch
   };
 }

@@ -14,7 +14,7 @@ import useUser from '@/hooks/user/use-user';
 
 export default function OnboardPage() {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, refetch } = useUser();
   const [stepObj, setStepObj] = useState({
     step: 0,
     color: {
@@ -51,8 +51,6 @@ export default function OnboardPage() {
       });
     }
   }, [user]);
-
-  console.log('stepObj', stepObj);
 
   // function
   const changeStep = (direction: string) => {
@@ -95,6 +93,7 @@ export default function OnboardPage() {
         });
 
         if (response.status === 200) {
+          refetch();
           router.push('/card');
         } else {
           setMessage('Failed to create user profile');
@@ -106,7 +105,7 @@ export default function OnboardPage() {
     } else {
       setMessage('Please fill color, character, and name');
     }
-  }, [router, stepObj, user]);
+  }, [router, stepObj]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
